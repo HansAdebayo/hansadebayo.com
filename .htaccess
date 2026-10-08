@@ -1,7 +1,7 @@
 # Force HTTPS
 RewriteEngine On
 RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # En-têtes de sécurité
 <IfModule mod_headers.c>
@@ -11,6 +11,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always unset X-Powered-By
+  Header unset X-Powered-By
 </IfModule>
 
 # Pas de listing des dossiers, fichiers cachés interdits
@@ -18,3 +21,14 @@ Options -Indexes
 <FilesMatch "^\.">
   Require all denied
 </FilesMatch>
+
+# Défense en profondeur : aucun fichier de données ou de config servi, même par erreur
+<FilesMatch "\.(csv|json|md|yml|yaml|log|sql|bak|ini|env|sh|txt)$">
+  Require all denied
+</FilesMatch>
+<Files "robots.txt">
+  Require all granted
+</Files>
+<Files "LICENSE-three.txt">
+  Require all granted
+</Files>

@@ -2,74 +2,85 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data:; form-action 'self'; base-uri 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title>ZB Dock · Précommande</title>
-  <meta name="description" content="ZB Dock, le dock de bureau imprimé en 3D pour iPhone, Apple Watch et AirPods. Conçu et fabriqué par Hans Adebayo. Réservez le vôtre, sans paiement.">
-  <meta property="og:title" content="ZB Dock · Précommande">
-  <meta property="og:description" content="Rechargez votre iPhone en MagSafe, votre Apple Watch et vos AirPods. Réservez le vôtre, sans paiement.">
-  <meta property="og:type" content="website">
+  <title>ZB Dock · Dock iPhone MagSafe, Apple Watch et AirPods · dès 25,99 €</title>
+  <meta name="description" content="ZB Dock, le dock de bureau imprimé en 3D pour iPhone, Apple Watch et AirPods. Dock seul 25,99 €, avec chargeur MagSafe Apple 59,99 €, livraison incluse. Précommande sans rien payer aujourd’hui.">
+  <meta property="og:title" content="ZB Dock · dès 25,99 €">
+  <meta property="og:description" content="iPhone, Apple Watch et AirPods sur un seul dock. Précommandez sans rien payer aujourd’hui.">
+  <meta property="og:type" content="product">
+  <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="zbdock.css">
   <link rel="modulepreload" href="vendor/three.module.min.js">
 </head>
-<body>
-  <div class="barre">
+<body class="page-zb">
+  <div class="zb-barre">
     <a class="signature" href="../index.html" aria-label="Retour à l'accueil">ZBH</a>
-    <a class="retour" href="#precommande">Réserver</a>
+    <nav class="zb-fil" aria-label="Fil d'Ariane"><a href="../index.html">Accueil</a><span aria-hidden="true">›</span><span>ZB Dock</span></nav>
   </div>
 
   <main class="zb">
-    <header class="zb-intro">
-      <p class="zb-tag">Précommandes ouvertes</p>
-      <h1>ZB Dock</h1>
-      <p class="bio">Le dock de bureau pour votre iPhone. Rechargez-le en MagSafe, chargez votre Apple Watch et même vos AirPods. Conçu et imprimé en 3D par Hans Adebayo.</p>
-    </header>
-
-    <section class="zb-viewer" aria-label="Modèle 3D du ZB Dock">
-      <div class="zb-canvas" id="viewer">
-        <p class="zb-chargement" id="chargement">Chargement du modèle 3D…</p>
-      </div>
-      <p class="zb-aide">Glissez pour tourner · pincez ou molette pour zoomer</p>
-
-      <fieldset class="zb-couleurs">
-        <legend>Couleur : <strong id="nom-couleur">Sable</strong></legend>
-        <div class="zb-pastilles" id="pastilles" role="radiogroup" aria-label="Couleurs disponibles"></div>
-      </fieldset>
-    </section>
-
-    <section aria-labelledby="titre-atouts">
-      <h2 id="titre-atouts">Pourquoi le ZB Dock</h2>
-      <ol class="faire">
-        <li>Recharge MagSafe, iPhone posé en paysage</li>
-        <li>Apple Watch et AirPods sur le même dock</li>
-        <li>Câbles cachés, bureau net</li>
-        <li>Imprimé à la demande, en PLA mat</li>
-      </ol>
-    </section>
-
-    <section id="precommande" aria-labelledby="titre-precommande">
-      <h2 id="titre-precommande">Réservez le vôtre</h2>
-      <p class="zb-note-haut">Réservation <strong>sans paiement</strong>. Je vous recontacte personnellement pour confirmer votre commande.</p>
-
-      <form class="zb-form" id="form" action="precommande.php" method="post" novalidate>
-        <div class="zb-champ">
-          <label for="nom">Nom et prénom</label>
-          <input id="nom" name="nom" type="text" autocomplete="name" required maxlength="80">
+    <!-- ===== Bloc produit ===== -->
+    <div class="zb-produit">
+      <section class="zb-galerie" aria-label="Modèle 3D du ZB Dock">
+        <div class="zb-canvas" id="viewer">
+          <p class="zb-chargement" id="chargement">Chargement du modèle 3D…</p>
+          <span class="zb-badge3d">3D</span>
         </div>
-        <div class="zb-champ">
-          <label for="email">E-mail</label>
-          <input id="email" name="email" type="email" autocomplete="email" required maxlength="120">
-        </div>
-        <div class="zb-champ">
-          <label for="telephone">Téléphone <span class="zb-opt">(facultatif)</span></label>
-          <input id="telephone" name="telephone" type="tel" autocomplete="tel" maxlength="30">
-        </div>
-        <div class="zb-ligne">
-          <div class="zb-champ">
-            <label for="iphone">Votre iPhone</label>
+        <p class="zb-aide">Glissez pour tourner · pincez pour zoomer</p>
+      </section>
+
+      <section class="zb-achat" id="achat" aria-labelledby="titre-produit">
+        <p class="zb-tag">Précommandes ouvertes</p>
+        <h1 id="titre-produit">ZB Dock</h1>
+        <p class="zb-prix"><span class="zb-prix__montant" id="prix-affiche">59,99&nbsp;€</span><span class="zb-prix__detail">Livraison incluse · rien à payer aujourd’hui</span></p>
+        <p class="zb-pitch">iPhone, Apple Watch et AirPods sur un seul dock. MagSafe ou filaire, câbles cachés, bureau enfin propre.</p>
+
+        <form class="zb-form" id="form" action="precommande.php" method="post" novalidate>
+          <fieldset class="zb-option">
+            <legend class="zb-option__titre">Formule</legend>
+            <div class="zb-offres">
+              <label class="zb-offre">
+                <input type="radio" name="offre" value="Dock + MagSafe" data-prix="5999" checked>
+                <span class="zb-offre__corps">
+                  <span class="zb-offre__badge">Recommandé</span>
+                  <span class="zb-offre__nom">Dock + chargeur MagSafe Apple</span>
+                  <span class="zb-offre__detail">Le chargeur MagSafe officiel d’Apple, prêt à l’emploi. Rien d’autre à acheter.</span>
+                  <span class="zb-offre__prix">59,99&nbsp;€</span>
+                </span>
+              </label>
+              <label class="zb-offre">
+                <input type="radio" name="offre" value="Dock seul" data-prix="2599">
+                <span class="zb-offre__corps">
+                  <span class="zb-offre__nom">Dock seul</span>
+                  <span class="zb-offre__detail">Vous avez déjà votre chargeur MagSafe.</span>
+                  <span class="zb-offre__prix">25,99&nbsp;€</span>
+                </span>
+              </label>
+            </div>
+            <p class="zb-offre__note">Pour profiter pleinement du ZB Dock, il faut un chargeur MagSafe : c’est lui qui recharge l’iPhone posé sur le dock.</p>
+          </fieldset>
+
+          <fieldset class="zb-option">
+            <legend class="zb-option__titre">Couleur <span class="zb-option__valeur" id="nom-couleur">Sable</span></legend>
+            <div class="zb-pastilles" id="pastilles" role="radiogroup" aria-label="Couleurs disponibles"></div>
+            <select class="zb-cache" id="couleur" name="couleur" required tabindex="-1" aria-hidden="true"></select>
+          </fieldset>
+
+          <div class="zb-option">
+            <label class="zb-option__titre" for="coque">Avec une coque ?</label>
+            <select id="coque" name="coque" required>
+              <option value="">Choisir…</option>
+              <option value="Non">iPhone sans coque</option>
+              <option value="Oui">iPhone avec coque</option>
+            </select>
+          </div>
+
+          <div class="zb-option">
+            <label class="zb-option__titre" for="iphone">Votre iPhone</label>
             <select id="iphone" name="iphone" required>
               <option value="">Choisir…</option>
               <option>iPhone 17 Pro Max</option>
@@ -85,51 +96,138 @@
               <option>Autre</option>
             </select>
           </div>
-          <div class="zb-champ">
-            <label for="coque">Avec une coque ?</label>
-            <select id="coque" name="coque" required>
-              <option value="">Choisir…</option>
-              <option>Oui</option>
-              <option>Non</option>
-            </select>
-          </div>
-        </div>
-        <div class="zb-ligne">
-          <div class="zb-champ">
-            <label for="couleur">Couleur</label>
-            <select id="couleur" name="couleur" required></select>
-          </div>
-          <div class="zb-champ">
-            <label for="quantite">Quantité</label>
-            <input id="quantite" name="quantite" type="number" min="1" max="10" value="1" required inputmode="numeric">
-          </div>
-        </div>
-        <div class="zb-champ">
-          <label for="message">Un mot ? <span class="zb-opt">(facultatif)</span></label>
-          <textarea id="message" name="message" rows="3" maxlength="600"></textarea>
-        </div>
 
-        <!-- Piège à robots : laisser vide -->
-        <div class="zb-piege" aria-hidden="true">
-          <label for="site">Ne pas remplir</label>
-          <input id="site" name="site" type="text" tabindex="-1" autocomplete="off">
-        </div>
+          <div class="zb-option">
+            <span class="zb-option__titre" id="lbl-quantite">Quantité</span>
+            <div class="zb-quantite" role="group" aria-labelledby="lbl-quantite">
+              <button type="button" id="moins" aria-label="Retirer un">−</button>
+              <input id="quantite" name="quantite" type="number" min="1" max="10" value="1" required inputmode="numeric" aria-labelledby="lbl-quantite">
+              <button type="button" id="plus" aria-label="Ajouter un">+</button>
+            </div>
+          </div>
 
-        <label class="zb-consent">
-          <input type="checkbox" name="consentement" value="oui" required>
-          <span>J'accepte d'être recontacté au sujet de ma réservation. Mes données ne servent qu'à cela et ne sont jamais revendues.</span>
-        </label>
+          <div class="zb-coordonnees">
+            <p class="zb-option__titre">Vos coordonnées</p>
+            <input id="nom" name="nom" type="text" autocomplete="name" required maxlength="80" placeholder="Nom et prénom" aria-label="Nom et prénom">
+            <input id="email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="E-mail" aria-label="E-mail">
+            <input id="telephone" name="telephone" type="tel" autocomplete="tel" maxlength="30" placeholder="Téléphone (facultatif)" aria-label="Téléphone (facultatif)">
+            <textarea id="message" name="message" rows="2" maxlength="600" placeholder="Un mot ? (facultatif)" aria-label="Message (facultatif)"></textarea>
+          </div>
 
-        <button class="cta zb-envoyer" type="submit">Réserver mon ZB Dock</button>
-        <p class="zb-statut" id="statut" role="status" aria-live="polite"></p>
-      </form>
+          <input type="hidden" name="t" id="t" value="">
+          <!-- Piège à robots : laisser vide -->
+          <div class="zb-piege" aria-hidden="true">
+            <label for="site">Ne pas remplir</label>
+            <input id="site" name="site" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <label class="zb-consent">
+            <input type="checkbox" name="consentement" value="oui" required>
+            <span>J’accepte d’être recontacté au sujet de ma précommande (<a href="../mentions-legales.html#confidentialite">confidentialité</a>).</span>
+          </label>
+
+          <button class="zb-acheter" type="submit">
+            <span>Précommander · <span id="total">59,99&nbsp;€</span></span>
+          </button>
+          <p class="zb-statut" id="statut" role="status" aria-live="polite"></p>
+
+          <ul class="zb-rassurance">
+            <li><strong>0&nbsp;€ aujourd’hui.</strong> Vous ne payez rien pour réserver.</li>
+            <li><strong>Livraison incluse</strong> en Point Relais ou Locker, partout en France.</li>
+            <li><strong>On vous recontacte</strong> pour confirmer couleur, modèle et livraison.</li>
+            <li><strong>Fabriqué à la commande</strong>, ajusté à votre iPhone.</li>
+          </ul>
+        </form>
+      </section>
+    </div>
+
+    <!-- ===== Histoire ===== -->
+    <section class="zb-histoire" aria-labelledby="titre-histoire">
+      <h2 id="titre-histoire">Un dock non primé, mais très bien posé.</h2>
+      <p>Le ZB Dock recharge votre iPhone, votre Apple Watch et vos AirPods, cache vos câbles et donne enfin à votre bureau l’air de savoir ce qu’il fait. Conçu et imprimé en 3D, avec beaucoup trop d’amour pour un objet qui ne bouge pas.</p>
+    </section>
+
+    <!-- ===== Atouts ===== -->
+    <section class="zb-atouts" aria-labelledby="titre-atouts">
+      <h2 id="titre-atouts">Un dock. Tout votre setup.</h2>
+      <ul class="zb-cartes">
+        <li class="zb-carte zb-carte--large">
+          <span class="zb-carte__num">01</span>
+          <h3>MagSafe ou filaire, vous choisissez.</h3>
+          <p>Posez votre iPhone, il se recharge en MagSafe. Vous préférez le câble ? La recharge filaire USB-C est aussi prévue.</p>
+        </li>
+        <li class="zb-carte">
+          <span class="zb-carte__num">02</span>
+          <h3>Une place pour l’Apple Watch.</h3>
+          <p>Son palet de charge se clipse dans le dock. La montre se recharge à côté de l’iPhone, pas au fond d’un tiroir.</p>
+        </li>
+        <li class="zb-carte">
+          <span class="zb-carte__num">03</span>
+          <h3>AirPods aussi.</h3>
+          <p>Le boîtier se pose et se recharge. Fini la chasse aux écouteurs avant de partir.</p>
+        </li>
+        <li class="zb-carte">
+          <span class="zb-carte__num">04</span>
+          <h3>Zéro câble en vue.</h3>
+          <p>Tout passe à l’intérieur et sort par l’arrière. Le bureau respire.</p>
+        </li>
+        <li class="zb-carte">
+          <span class="zb-carte__num">05</span>
+          <h3>Un vrai écran de bureau.</h3>
+          <p>iPhone en paysage, bien droit : vidéos, appels, mode veille. Il ne fait pas que charger, il se regarde.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== Preuve sociale ===== -->
+    <section class="zb-preuve" aria-labelledby="titre-preuve">
+      <p class="zb-preuve__chiffre">10+</p>
+      <h2 id="titre-preuve">Déjà testé. Déjà adopté.</h2>
+      <p>Plus de dix personnes ont eu le ZB Dock entre les mains avant vous. Verdict unanime : tout le monde veut le sien. On est sûrs que vous allez l’adorer aussi.</p>
+      <a class="zb-lien-achat" href="#achat">Je réserve le mien</a>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="zb-faq" aria-labelledby="titre-faq">
+      <h2 id="titre-faq">Questions fréquentes</h2>
+      <details>
+        <summary>Je paie quand ?</summary>
+        <p>Pas maintenant. La précommande est gratuite et sans engagement. On vous recontacte pour confirmer, et vous ne payez qu’à ce moment-là.</p>
+      </details>
+      <details>
+        <summary>Il marche avec ma coque ?</summary>
+        <p>Oui, si vous l’indiquez. Choisissez « iPhone avec coque » et votre modèle : le dock est ajusté pour l’accueillir.</p>
+      </details>
+      <details>
+        <summary>Quels iPhone sont compatibles ?</summary>
+        <p>Les iPhone récents compatibles MagSafe, des modèles standard aux Pro Max. Pour un modèle plus ancien, choisissez « Autre » et on en parle.</p>
+      </details>
+      <details>
+        <summary>Pourquoi prendre la formule avec MagSafe ?</summary>
+        <p>Le ZB Dock est pensé autour du chargeur MagSafe : c’est lui qui recharge l’iPhone posé sur le dock. Avec la formule à 59,99&nbsp;€, vous recevez le chargeur MagSafe officiel d’Apple avec votre dock, tout est prêt dès le déballage. Si vous en avez déjà un, le dock seul à 25,99&nbsp;€ suffit.</p>
+      </details>
+      <details>
+        <summary>Et la livraison ?</summary>
+        <p>Elle est incluse dans le prix. Votre ZB Dock est envoyé en Point Relais ou en Locker, partout en France métropolitaine, sans frais supplémentaires.</p>
+      </details>
+      <details>
+        <summary>Je peux changer d’avis ?</summary>
+        <p>Bien sûr. Un simple e-mail suffit pour annuler votre précommande.</p>
+      </details>
     </section>
 
     <footer>
       <p class="signature-pied"><strong>ZeBest Studio</strong></p>
-      <p>Conçu et fabriqué par Hans Adebayo, à Toulouse.</p>
+      <p>Conçu et imprimé en 3D. Ce texte n’a pas été écrit par un dock. Enfin, pas entièrement.</p>
+      <p><a class="retour" href="../mentions-legales.html">Mentions légales et confidentialité</a></p>
     </footer>
   </main>
+
+  <!-- Barre d'achat collante (mobile) -->
+  <div class="zb-collante" id="collante" aria-hidden="true">
+    <div class="zb-collante__prix"><strong>Dès 25,99&nbsp;€</strong><span>Livraison incluse</span></div>
+    <a class="zb-collante__btn" href="#achat" tabindex="-1">Précommander</a>
+  </div>
 
   <script type="module" src="zbdock.js"></script>
 </body>

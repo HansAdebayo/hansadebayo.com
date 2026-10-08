@@ -133,6 +133,8 @@ renderer.setAnimationLoop(() => {
 // ---------- Formulaire ----------
 const form = document.getElementById('form');
 const statut = document.getElementById('statut');
+const champT = document.getElementById('t');
+let ouverture = performance.now();
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -141,6 +143,8 @@ form.addEventListener('submit', async (e) => {
     form.reportValidity();
     return;
   }
+  // Durée passée sur le formulaire (anti-robots) : calculée sur l'appareil, sans dépendre de l'horloge
+  champT.value = String(Math.round(performance.now() - ouverture));
   const bouton = form.querySelector('button[type="submit"]');
   bouton.disabled = true;
   statut.textContent = 'Envoi en cours…';
@@ -153,9 +157,10 @@ form.addEventListener('submit', async (e) => {
     const data = await rep.json().catch(() => ({}));
     if (!rep.ok || !data.ok) throw new Error(data.erreur || 'Envoi impossible');
     form.reset();
+    ouverture = performance.now();
     choisir(0);
     statut.classList.add('zb-statut--ok');
-    statut.textContent = 'Merci ! Votre ZB Dock est réservé. Je vous recontacte très vite.';
+    statut.textContent = 'Merci ! Votre ZB Dock est réservé. On vous recontacte très vite.';
   } catch (err) {
     statut.classList.add('zb-statut--ko');
     statut.textContent = (err && err.message ? err.message : 'Envoi impossible') + '. Réessayez ou écrivez à contact.hansadebayo@gmail.com.';
@@ -163,3 +168,31 @@ form.addEventListener('submit', async (e) => {
     bouton.disabled = false;
   }
 });
+
+// ---------- Quantité et total ----------
+const PRIX_CENTIMES = 2599;
+const champQuantite = document.getElementById('quantite');
+const total = document.getElementById('total');
+const formatEuro = (c) => (c / 100).toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' €';
+function majTotal() {
+  let q = parseInt(champQuantite.value, 10);
+  if (!Number.isFinite(q)) q = 1;
+  q = Math.min(10, Math.max(1, q));
+  champQuantite.value = String(q);
+  total.textContent = formatEuro(PRIX_CENTIMES * q);
+}
+document.getElementById('moins').addEventListener('click', () => { champQuantite.value = String(+champQuantite.value - 1); majTotal(); });
+document.getElementById('plus').addEventListener('click', () => { champQuantite.value = String(+champQuantite.value + 1); majTotal(); });
+champQuantite.addEventListener('change', majTotal);
+form.addEventListener('reset', () => setTimeout(majTotal));
+
+// ---------- Barre d'achat collante (mobile) ----------
+const collante = document.getElementById('collante');
+const zoneAchat = document.getElementById('achat');
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(([e]) => {
+    // visible seulement quand le bloc d'achat est sorti de l'écran (au-dessus)
+    const montrer = !e.isIntersecting && e.boundingClientRect.top < 0;
+    collante.classList.toggle('visible', montrer);
+  }).observe(zoneAchat);
+}

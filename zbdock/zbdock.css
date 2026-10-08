@@ -1,34 +1,64 @@
-/* Page ZB Dock : complète styles.css du site */
+/* Page produit ZB Dock : complète styles.css du site (même DA noir et blanc) */
 
-.zb { gap: 48px; }
+.page-zb { padding-bottom: env(safe-area-inset-bottom); }
 
-.zb-intro { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.zb-tag {
-  margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-  border: 1.5px solid var(--texte); border-radius: 999px; padding: 4px 12px;
+/* Barre du haut */
+.zb-barre {
+  max-width: 1120px; margin: 0 auto; padding: 20px 20px 0;
+  display: flex; align-items: center; gap: 20px;
 }
-.zb-intro h1 { margin-top: 8px; font-size: 52px; }
+.zb-barre .signature { color: var(--texte); text-decoration: none; }
+.zb-fil { display: flex; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+.zb-fil a { color: var(--texte); text-decoration: none; }
+.zb-fil a:hover { text-decoration: underline; }
 
+main.zb { max-width: 1120px; padding: 28px 20px 64px; gap: 72px; }
+
+/* ===== Bloc produit ===== */
+.zb-produit { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+
+.zb-galerie { position: sticky; top: 20px; }
 .zb-canvas {
   position: relative; width: 100%; aspect-ratio: 1 / 1;
-  border: 1px solid var(--texte); border-radius: 14px; overflow: hidden;
-  background: radial-gradient(120% 90% at 50% 20%, #ffffff 0%, #f1f1f1 100%);
+  border-radius: 18px; overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 20%, #ffffff 0%, #efefef 100%);
   touch-action: none; cursor: grab;
 }
 .zb-canvas:active { cursor: grabbing; }
 .zb-canvas canvas { display: block; width: 100%; height: 100%; }
-.zb-chargement {
-  position: absolute; inset: 0; margin: 0;
-  display: flex; align-items: center; justify-content: center; font-size: 14px;
+.zb-chargement { position: absolute; inset: 0; margin: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.zb-badge3d {
+  position: absolute; top: 14px; left: 14px; pointer-events: none;
+  font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+  border: 1.5px solid var(--texte); border-radius: 999px; padding: 3px 9px; background: var(--fond);
 }
 .zb-aide { margin: 10px 0 0; text-align: center; font-size: 13px; }
 
-.zb-couleurs { border: 0; margin: 24px 0 0; padding: 0; text-align: center; }
-.zb-couleurs legend { padding: 0; margin: 0 auto 12px; font-size: 15px; }
+/* Colonne achat */
+.zb-achat { display: flex; flex-direction: column; align-items: stretch; text-align: center; }
+.zb-tag {
+  align-self: center; margin: 0; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  border: 1.5px solid var(--texte); border-radius: 999px; padding: 4px 12px;
+}
+.zb-achat h1 { margin: 14px 0 0; font-size: 44px; font-weight: 700; letter-spacing: -1px; line-height: 1.05; text-transform: uppercase; }
+.zb-prix { margin: 10px 0 0; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.zb-prix__montant { font-size: 30px; font-weight: 600; letter-spacing: -.5px; line-height: 1.1; }
+.zb-prix__detail { font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.zb-pitch { margin: 16px 0 0; font-size: 16px; }
+
+.zb-form { display: flex; flex-direction: column; gap: 22px; margin-top: 28px; }
+
+.zb-option { position: relative; border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: stretch; gap: 10px; min-width: 0; }
+.zb-option__titre {
+  display: block; padding: 0; margin: 0 auto;
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+}
+.zb-option__valeur { font-weight: 400; letter-spacing: 0; text-transform: none; margin-left: 8px; padding-left: 8px; border-left: 1px solid var(--texte); }
+
 .zb-pastilles { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .zb-pastille {
-  width: 40px; height: 40px; border-radius: 50%; padding: 0; cursor: pointer;
-  background: var(--c); border: 1px solid rgba(0, 0, 0, .25);
+  width: 38px; height: 38px; border-radius: 50%; padding: 0; cursor: pointer;
+  background: var(--c); border: 1px solid rgba(0, 0, 0, .2);
   box-shadow: 0 0 0 3px var(--fond), 0 0 0 4px transparent;
   transition: box-shadow .15s, transform .15s;
 }
@@ -36,41 +66,144 @@
 .zb-pastille[aria-checked="true"] { box-shadow: 0 0 0 3px var(--fond), 0 0 0 5px var(--texte); }
 .zb-pastille:focus-visible { outline: 2px solid var(--texte); outline-offset: 6px; }
 
-.zb-note-haut { margin: -4px 0 20px; font-size: 16px; }
+.zb-form .zb-cache { position: absolute !important; left: 0; top: 0; width: 1px !important; height: 1px !important; min-height: 0 !important; padding: 0 !important; border: 0 !important; overflow: hidden; clip-path: inset(50%); opacity: 0; pointer-events: none; }
 
-.zb-form { display: flex; flex-direction: column; gap: 16px; }
-.zb-ligne { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.zb-champ { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.zb-champ label { font-size: 14px; font-weight: 600; }
-.zb-opt { font-weight: 400; }
-.zb-form input[type="text"], .zb-form input[type="email"], .zb-form input[type="tel"],
-.zb-form input[type="number"], .zb-form select, .zb-form textarea {
-  width: 100%; min-height: 50px; padding: 12px 14px;
+.zb-form select, .zb-form input[type="text"], .zb-form input[type="email"],
+.zb-form input[type="tel"], .zb-form textarea {
+  width: 100%; min-height: 48px; padding: 12px 14px;
   font: inherit; font-size: 16px; color: var(--texte); background: var(--fond);
-  border: 1px solid var(--texte); border-radius: 12px; appearance: none;
+  border: 1px solid var(--texte); border-radius: 10px; appearance: none;
 }
 .zb-form select {
+  text-align: center; text-align-last: center;
   background-image: linear-gradient(45deg, transparent 50%, var(--texte) 50%), linear-gradient(135deg, var(--texte) 50%, transparent 50%);
   background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
-  background-size: 6px 6px; background-repeat: no-repeat; padding-right: 36px;
+  background-size: 6px 6px; background-repeat: no-repeat; padding: 12px 36px;
 }
 .zb-form textarea { resize: vertical; }
-.zb-form :is(input, select, textarea):focus-visible { outline: 2px solid var(--texte); outline-offset: 2px; }
+.zb-form :is(input, select, textarea, button):focus-visible { outline: 2px solid var(--texte); outline-offset: 2px; }
+.zb-form ::placeholder { color: #6b6b6b; }
+
+.zb-quantite { align-self: center; display: inline-flex; border: 1px solid var(--texte); border-radius: 10px; overflow: hidden; }
+.zb-quantite button {
+  width: 48px; height: 46px; border: 0; background: var(--fond); color: var(--texte);
+  font: inherit; font-size: 20px; cursor: pointer;
+}
+.zb-quantite button:hover { background: var(--texte); color: var(--fond); }
+.zb-quantite input {
+  width: 52px; border: 0; border-left: 1px solid var(--texte); border-right: 1px solid var(--texte);
+  text-align: center; font: inherit; font-size: 16px; -moz-appearance: textfield; appearance: textfield; background: var(--fond); color: var(--texte);
+}
+.zb-quantite input::-webkit-outer-spin-button, .zb-quantite input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+.zb-coordonnees { display: flex; flex-direction: column; gap: 10px; padding-top: 22px; border-top: 1px solid var(--texte); }
 
 .zb-piege { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
-.zb-consent { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.5; }
-.zb-consent input { width: 20px; height: 20px; margin: 2px 0 0; flex: none; accent-color: var(--texte); }
+.zb-consent { display: flex; gap: 12px; align-items: flex-start; font-size: 13px; line-height: 1.5; text-align: left; }
+.zb-consent input { width: 20px; height: 20px; margin: 1px 0 0; flex: none; accent-color: var(--texte); }
+.zb-consent a { color: var(--texte); }
 
-.zb-envoyer { margin: 4px 0 0; cursor: pointer; font-family: inherit; width: 100%; }
-.zb-envoyer:disabled { opacity: .5; cursor: progress; }
+.zb-acheter {
+  width: 100%; min-height: 58px; padding: 0 20px; cursor: pointer;
+  font: inherit; font-size: 15px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--fond); background: var(--texte); border: 1.5px solid var(--texte); border-radius: 10px;
+  transition: background .15s, color .15s;
+}
+.zb-acheter:hover { background: var(--fond); color: var(--texte); }
+.zb-acheter:disabled { opacity: .5; cursor: progress; }
 
-.zb-statut { margin: 0; min-height: 1.6em; font-size: 15px; text-align: center; }
-.zb-statut--ok { font-weight: 600; }
+.zb-statut { margin: -8px 0 0; min-height: 1.4em; font-size: 15px; }
+.zb-statut--ok { font-weight: 700; }
 .zb-statut--ko { text-decoration: underline; text-underline-offset: 3px; }
 
-@media (max-width: 420px) {
-  .zb-ligne { grid-template-columns: 1fr; }
-  .zb-intro h1 { font-size: 42px; }
+.zb-rassurance { list-style: none; margin: 0; padding: 0; text-align: left; font-size: 14px; }
+.zb-rassurance li { padding: 12px 0 12px 28px; border-top: 1px solid var(--texte); position: relative; }
+.zb-rassurance li:last-child { border-bottom: 1px solid var(--texte); }
+.zb-rassurance li::before { content: "✓"; position: absolute; left: 4px; font-weight: 800; }
+
+/* ===== Sections du bas (colonne lisible, centrée) ===== */
+.zb-histoire, .zb-atouts, .zb-preuve, .zb-faq { width: 100%; max-width: 760px; margin: 0 auto; }
+
+.zb-histoire { text-align: center; }
+.zb-histoire h2 { font-size: 34px; letter-spacing: -.8px; line-height: 1.1; margin-bottom: 14px; }
+.zb-histoire p { margin: 0; font-size: 18px; }
+
+.zb-atouts h2 { font-size: 32px; letter-spacing: -.5px; line-height: 1.15; text-align: center; margin-bottom: 24px; }
+.zb-cartes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.zb-carte {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 22px 20px; border: 1px solid var(--texte); border-radius: 14px;
+  transition: background .15s, color .15s;
 }
-@media (prefers-reduced-motion: reduce) { .zb-pastille { transition: none; } }
+.zb-carte:hover { background: var(--texte); color: var(--fond); }
+.zb-carte--large { grid-column: 1 / -1; background: var(--texte); color: var(--fond); }
+.zb-carte--large:hover { background: var(--fond); color: var(--texte); }
+.zb-carte__num { font-size: 13px; font-weight: 700; letter-spacing: 2px; }
+.zb-carte h3 { margin: 0; font-size: 20px; font-weight: 700; line-height: 1.2; letter-spacing: -.3px; }
+.zb-carte--large h3 { font-size: 24px; }
+.zb-carte p { margin: 0; font-size: 15px; line-height: 1.5; }
+
+.zb-preuve { text-align: center; padding: 40px 24px; border: 1px solid var(--texte); border-radius: 14px; box-sizing: border-box; }
+.zb-preuve__chiffre { margin: 0; font-size: 64px; font-weight: 800; letter-spacing: -2px; line-height: 1; }
+.zb-preuve h2 { margin: 8px 0 12px; font-size: 26px; }
+.zb-preuve p { margin: 0 auto; font-size: 17px; max-width: 520px; }
+.zb-lien-achat {
+  display: inline-block; margin-top: 22px; padding: 14px 28px; border-radius: 10px;
+  background: var(--texte); color: var(--fond); text-decoration: none;
+  font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+}
+.zb-lien-achat:hover { background: var(--fond); color: var(--texte); outline: 1.5px solid var(--texte); }
+
+.zb-faq h2 { text-align: center; font-size: 28px; margin-bottom: 16px; }
+.zb-faq details { border-top: 1px solid var(--texte); }
+.zb-faq details:last-of-type { border-bottom: 1px solid var(--texte); }
+.zb-faq summary {
+  list-style: none; cursor: pointer; padding: 18px 32px 18px 0; position: relative;
+  font-size: 17px; font-weight: 600;
+}
+.zb-faq summary::-webkit-details-marker { display: none; }
+.zb-faq summary::after { content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); font-size: 22px; font-weight: 400; }
+.zb-faq details[open] summary::after { content: "−"; }
+.zb-faq details p { margin: 0 0 18px; font-size: 16px; }
+
+/* ===== Barre collante mobile ===== */
+.zb-collante { display: none; }
+
+/* ===== Tablette et mobile ===== */
+@media (max-width: 860px) {
+  .zb-produit { grid-template-columns: 1fr; gap: 24px; }
+  .zb-galerie { position: static; }
+  .zb-achat h1 { font-size: 38px; }
+  main.zb { gap: 56px; padding-top: 16px; padding-bottom: 110px; }
+
+  .zb-collante {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: var(--fond); border-top: 1px solid var(--texte);
+    transform: translateY(110%); transition: transform .2s ease;
+  }
+  .zb-collante.visible { transform: translateY(0); }
+  .zb-collante__prix { display: flex; flex-direction: column; line-height: 1.2; }
+  .zb-collante__prix strong { font-size: 18px; }
+  .zb-collante__prix span { font-size: 12px; }
+  .zb-collante__btn {
+    flex: none; padding: 14px 22px; border-radius: 10px; text-decoration: none;
+    background: var(--texte); color: var(--fond);
+    font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  }
+}
+@media (max-width: 480px) {
+  .zb-barre { padding: 16px 16px 0; }
+  main.zb { padding-left: 16px; padding-right: 16px; }
+  .zb-canvas { border-radius: 14px; }
+  .zb-pastilles { gap: 9px; }
+  .zb-pastille { width: 34px; height: 34px; }
+  .zb-cartes { grid-template-columns: 1fr; }
+  .zb-histoire h2, .zb-atouts h2 { font-size: 28px; }
+  .zb-histoire p { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .zb-pastille, .zb-carte, .zb-acheter, .zb-collante { transition: none; }
+}
