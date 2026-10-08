@@ -28,63 +28,49 @@
       <section class="zb-galerie" aria-label="Modèle 3D du ZB Dock">
         <div class="zb-canvas" id="viewer">
           <p class="zb-chargement" id="chargement">Chargement du modèle 3D…</p>
-          <span class="zb-badge3d">3D</span>
         </div>
-        <p class="zb-aide">Glissez pour tourner · pincez pour zoomer</p>
+        <div class="zb-vues" role="group" aria-label="Angles de vue">
+          <button type="button" class="zb-vue" data-vue="34" aria-pressed="true">3/4</button>
+          <button type="button" class="zb-vue" data-vue="face" aria-pressed="false">Face</button>
+          <button type="button" class="zb-vue" data-vue="cote" aria-pressed="false">Côté</button>
+          <button type="button" class="zb-vue" data-vue="arriere" aria-pressed="false">Arrière</button>
+        </div>
+        <p class="zb-aide">Modèle 3D : glissez pour tourner, pincez pour zoomer.</p>
       </section>
 
       <section class="zb-achat" id="achat" aria-labelledby="titre-produit">
-        <p class="zb-tag">Précommandes ouvertes</p>
+        <p class="zb-prix">À partir de <span id="prix-affiche">25,99&nbsp;€</span></p>
         <h1 id="titre-produit">ZB Dock</h1>
-        <p class="zb-prix"><span class="zb-prix__montant" id="prix-affiche">59,99&nbsp;€</span><span class="zb-prix__detail">Livraison incluse · rien à payer aujourd’hui</span></p>
-        <p class="zb-pitch">iPhone, Apple Watch et AirPods sur un seul dock. MagSafe ou filaire, câbles cachés, bureau enfin propre.</p>
+        <p class="zb-sous">Dock de bureau pour iPhone</p>
 
         <form class="zb-form" id="form" action="precommande.php" method="post" novalidate>
           <fieldset class="zb-option">
-            <legend class="zb-option__titre">Formule</legend>
-            <div class="zb-offres">
-              <label class="zb-offre">
-                <input type="radio" name="offre" value="Dock + MagSafe" data-prix="5999" checked>
-                <span class="zb-offre__corps">
-                  <span class="zb-offre__badge">Recommandé</span>
-                  <span class="zb-offre__nom">Dock + chargeur MagSafe Apple</span>
-                  <span class="zb-offre__detail">Le chargeur MagSafe officiel d’Apple, prêt à l’emploi. Rien d’autre à acheter.</span>
-                  <span class="zb-offre__prix">59,99&nbsp;€</span>
-                </span>
-              </label>
-              <label class="zb-offre">
-                <input type="radio" name="offre" value="Dock seul" data-prix="2599">
-                <span class="zb-offre__corps">
-                  <span class="zb-offre__nom">Dock seul</span>
-                  <span class="zb-offre__detail">Vous avez déjà un chargeur MagSafe, Apple ou d’une autre marque.</span>
-                  <span class="zb-offre__prix">25,99&nbsp;€</span>
-                </span>
-              </label>
-            </div>
-            <p class="zb-offre__note">Pour profiter pleinement du ZB Dock, il faut un chargeur MagSafe : c’est lui qui recharge l’iPhone posé sur le dock. Un chargeur d’une autre marque ? C’est possible : indiquez son modèle dans le message, le dock sera adapté à ses dimensions.</p>
-          </fieldset>
-
-          <fieldset class="zb-option">
-            <legend class="zb-option__titre">Couleur <span class="zb-option__valeur" id="nom-couleur">Sable</span></legend>
+            <legend class="zb-label">Couleur <span class="zb-label__valeur" id="nom-couleur">Sable</span></legend>
             <div class="zb-pastilles" id="pastilles" role="radiogroup" aria-label="Couleurs disponibles"></div>
             <select class="zb-cache" id="couleur" name="couleur" required tabindex="-1" aria-hidden="true"></select>
           </fieldset>
 
           <div class="zb-option">
-            <label class="zb-option__titre" for="coque">Avec une coque ?</label>
+            <label class="zb-label" for="offre">Formule</label>
+            <select id="offre" name="offre" required>
+              <option value="Dock seul" data-prix="2599">Dock seul · 25,99 €</option>
+              <option value="Dock + MagSafe" data-prix="5999">Dock + chargeur MagSafe Apple · 59,99 € (conseillé)</option>
+            </select>
+          </div>
+
+          <div class="zb-option">
+            <label class="zb-label" for="coque">Avec une coque ?</label>
             <select id="coque" name="coque" required>
-              <option value="">Choisir…</option>
               <option value="Non">iPhone sans coque</option>
               <option value="Oui">iPhone avec coque</option>
             </select>
           </div>
 
           <div class="zb-option">
-            <label class="zb-option__titre" for="iphone">Votre iPhone</label>
+            <label class="zb-label" for="iphone">Modèle d’iPhone</label>
             <select id="iphone" name="iphone" required>
-              <option value="">Choisir…</option>
-              <option>iPhone 17 Pro Max</option>
               <option>iPhone 17 Pro</option>
+              <option>iPhone 17 Pro Max</option>
               <option>iPhone 17</option>
               <option>iPhone Air</option>
               <option>iPhone 16 Pro Max</option>
@@ -97,21 +83,25 @@
             </select>
           </div>
 
-          <div class="zb-option">
-            <span class="zb-option__titre" id="lbl-quantite">Quantité</span>
-            <div class="zb-quantite" role="group" aria-labelledby="lbl-quantite">
-              <button type="button" id="moins" aria-label="Retirer un">−</button>
-              <input id="quantite" name="quantite" type="number" min="1" max="10" value="1" required inputmode="numeric" aria-labelledby="lbl-quantite">
-              <button type="button" id="plus" aria-label="Ajouter un">+</button>
-            </div>
+          <div class="zb-quantite" role="group" aria-label="Quantité">
+            <button type="button" id="moins" aria-label="Retirer un">−</button>
+            <input id="quantite" name="quantite" type="number" min="1" max="10" value="1" required inputmode="numeric" aria-label="Quantité">
+            <button type="button" id="plus" aria-label="Ajouter un">+</button>
           </div>
 
-          <div class="zb-coordonnees">
-            <p class="zb-option__titre">Vos coordonnées</p>
+          <button class="zb-bouton" type="button" id="continuer">Précommander · <span id="total">25,99&nbsp;€</span></button>
+
+          <div class="zb-coordonnees" id="coordonnees" hidden>
+            <p class="zb-label">Où vous recontacter ?</p>
             <input id="nom" name="nom" type="text" autocomplete="name" required maxlength="80" placeholder="Nom et prénom" aria-label="Nom et prénom">
             <input id="email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="E-mail" aria-label="E-mail">
             <input id="telephone" name="telephone" type="tel" autocomplete="tel" maxlength="30" placeholder="Téléphone (facultatif)" aria-label="Téléphone (facultatif)">
-            <textarea id="message" name="message" rows="2" maxlength="600" placeholder="Un mot ? Modèle de votre chargeur MagSafe si ce n’est pas un Apple (facultatif)" aria-label="Message (facultatif)"></textarea>
+            <textarea id="message" name="message" rows="2" maxlength="600" placeholder="Un mot ? Autre chargeur MagSafe : indiquez son modèle (facultatif)" aria-label="Message (facultatif)"></textarea>
+            <label class="zb-consent">
+              <input type="checkbox" name="consentement" value="oui" required>
+              <span>J’accepte d’être recontacté au sujet de ma précommande (<a href="../mentions-legales.html#confidentialite">confidentialité</a>).</span>
+            </label>
+            <button class="zb-bouton zb-bouton--plein" type="submit">Confirmer ma précommande</button>
           </div>
 
           <input type="hidden" name="t" id="t" value="">
@@ -121,23 +111,14 @@
             <input id="site" name="site" type="text" tabindex="-1" autocomplete="off">
           </div>
 
-          <label class="zb-consent">
-            <input type="checkbox" name="consentement" value="oui" required>
-            <span>J’accepte d’être recontacté au sujet de ma précommande (<a href="../mentions-legales.html#confidentialite">confidentialité</a>).</span>
-          </label>
-
-          <button class="zb-acheter" type="submit">
-            <span>Précommander · <span id="total">59,99&nbsp;€</span></span>
-          </button>
           <p class="zb-statut" id="statut" role="status" aria-live="polite"></p>
-
-          <ul class="zb-rassurance">
-            <li><strong>0&nbsp;€ aujourd’hui.</strong> Vous ne payez rien pour réserver.</li>
-            <li><strong>Livraison incluse</strong> en Point Relais ou Locker, partout en France.</li>
-            <li><strong>On vous recontacte</strong> pour confirmer couleur, modèle et livraison.</li>
-            <li><strong>Fabriqué à la commande</strong>, ajusté à votre iPhone.</li>
-          </ul>
         </form>
+
+        <div class="zb-description">
+          <p>Dock imprimé en 3D pour iPhone et MagSafe. Il accueille aussi votre <strong>Apple Watch</strong> et vos <strong>AirPods</strong>, cache les câbles et transforme votre iPhone en écran de bureau.</p>
+          <p>Pour en profiter pleinement, prenez-le avec le <strong>chargeur MagSafe Apple</strong> : recharge plus rapide, meilleur rendement. Un autre chargeur MagSafe ? Indiquez son modèle, le dock sera adapté à ses dimensions.</p>
+          <p><strong>Livraison incluse</strong> en Point Relais ou Locker. <strong>Rien à payer aujourd’hui</strong> : on vous recontacte pour confirmer.</p>
+        </div>
       </section>
     </div>
 
@@ -229,7 +210,7 @@
 
   <!-- Barre d'achat collante (mobile) -->
   <div class="zb-collante" id="collante" aria-hidden="true">
-    <div class="zb-collante__prix"><strong>Dès 25,99&nbsp;€</strong><span>Livraison incluse</span></div>
+    <div class="zb-collante__prix"><strong>À partir de 25,99&nbsp;€</strong><span>Livraison incluse</span></div>
     <a class="zb-collante__btn" href="#achat" tabindex="-1">Précommander</a>
   </div>
 

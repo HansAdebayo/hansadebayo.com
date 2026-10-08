@@ -120,12 +120,32 @@ new GLTFLoader().load('assets/zbdock.glb', (gltf) => {
   controls.minDistance = taille * 0.9;
   controls.maxDistance = taille * 3.5;
   controls.update();
+  const ty = controls.target.y;
+  VUES['34']     = new THREE.Vector3(taille * 1.25, taille * 0.75, taille * 1.35);
+  VUES.face      = new THREE.Vector3(taille * 1.9, ty + taille * 0.35, 0);
+  VUES.cote      = new THREE.Vector3(0, ty + taille * 0.2, taille * 1.9);
+  VUES.arriere   = new THREE.Vector3(-taille * 1.3, ty + taille * 1.1, taille * 0.4);
   chargement.remove();
 }, undefined, () => {
   chargement.textContent = 'Le modèle 3D n’a pas pu se charger.';
 });
 
+// Angles de vue (boutons sous la 3D) avec transition douce
+const VUES = {};
+let cible = null;
+document.querySelectorAll('.zb-vue').forEach((b) => b.addEventListener('click', () => {
+  if (!VUES[b.dataset.vue]) return;
+  cible = VUES[b.dataset.vue].clone();
+  controls.autoRotate = false;
+  document.querySelectorAll('.zb-vue').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+}));
+controls.addEventListener('start', () => { cible = null; });
+
 renderer.setAnimationLoop(() => {
+  if (cible) {
+    camera.position.lerp(cible, 0.12);
+    if (camera.position.distanceTo(cible) < 0.5) cible = null;
+  }
   controls.update();
   renderer.render(scene, camera);
 });
@@ -170,9 +190,8 @@ form.addEventListener('submit', async (e) => {
 });
 
 // ---------- Quantité et total ----------
-const offres = [...document.querySelectorAll('input[name="offre"]')];
-const prixAffiche = document.getElementById('prix-affiche');
-const prixOffre = () => +(offres.find(o => o.checked) || offres[0]).dataset.prix;
+const selectOffre = document.getElementById('offre');
+const prixOffre = () => +selectOffre.selectedOptions[0].dataset.prix;
 const champQuantite = document.getElementById('quantite');
 const total = document.getElementById('total');
 const formatEuro = (c) => (c / 100).toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' €';
@@ -182,12 +201,19 @@ function majTotal() {
   q = Math.min(10, Math.max(1, q));
   champQuantite.value = String(q);
   total.textContent = formatEuro(prixOffre() * q);
-  prixAffiche.textContent = formatEuro(prixOffre());
 }
 document.getElementById('moins').addEventListener('click', () => { champQuantite.value = String(+champQuantite.value - 1); majTotal(); });
 document.getElementById('plus').addEventListener('click', () => { champQuantite.value = String(+champQuantite.value + 1); majTotal(); });
 champQuantite.addEventListener('change', majTotal);
-offres.forEach(o => o.addEventListener('change', majTotal));
+selectOffre.addEventListener('change', majTotal);
+
+// Étape 2 : les coordonnées n'apparaissent qu'après « Précommander »
+const coordonnees = document.getElementById('coordonnees');
+document.getElementById('continuer').addEventListener('click', () => {
+  coordonnees.hidden = false;
+  document.getElementById('nom').focus({ preventScroll: true });
+  coordonnees.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
 form.addEventListener('reset', () => setTimeout(majTotal));
 
 // ---------- Barre d'achat collante (mobile) ----------
