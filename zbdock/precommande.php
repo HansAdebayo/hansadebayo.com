@@ -12,6 +12,7 @@ header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-store');
 
 const DESTINATAIRE   = 'contact.hansadebayo@gmail.com';
+const OFFRES         = ['Dock + MagSafe', 'Dock seul'];
 const COULEURS       = ['Sable', 'Blanc', 'Noir', 'Orange', 'Noyer', 'Lavande', 'Bleu', 'Sauge'];
 const DELAI_MIN_S    = 3;     // un humain met plus de 3 s à remplir le formulaire
 const MAX_PAR_IP_H   = 5;     // envois max par IP et par heure
@@ -76,6 +77,7 @@ $telephone = champ('telephone', 30);
 $iphone    = champ('iphone', 60);
 $coque     = champ('coque', 5);
 $couleur   = champ('couleur', 20);
+$offre     = champ('offre', 20);
 $quantite  = (int)($_POST['quantite'] ?? 1);
 $message   = mb_substr(trim((string)preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/u', '', (string)($_POST['message'] ?? ''))), 0, 600, 'UTF-8');
 $consent   = ($_POST['consentement'] ?? '') === 'oui';
@@ -86,6 +88,7 @@ if ($telephone !== '' && !preg_match('/^[0-9+ ().\-]{6,30}$/', $telephone))
                                                        repondre(false, 'Téléphone invalide', $veutJson, 422);
 if ($iphone === '')                                    repondre(false, 'Choisissez votre iPhone', $veutJson, 422);
 if (!in_array($coque, ['Oui', 'Non'], true))           repondre(false, 'Précisez si vous utilisez une coque', $veutJson, 422);
+if (!in_array($offre, OFFRES, true))                  repondre(false, 'Choisissez une formule', $veutJson, 422);
 if (!in_array($couleur, COULEURS, true))               repondre(false, 'Couleur inconnue', $veutJson, 422);
 if ($quantite < 1 || $quantite > 10)                   repondre(false, 'Quantité entre 1 et 10', $veutJson, 422);
 if (!$consent)                                         repondre(false, 'Merci d\'accepter d\'être recontacté', $veutJson, 422);
@@ -156,9 +159,9 @@ if ($f === false) {
 flock($f, LOCK_EX);
 if ($nouveau) {
     @chmod($fichier, 0600);
-    fputcsv($f, ['date', 'nom', 'email', 'telephone', 'iphone', 'coque', 'couleur', 'quantite', 'message']);
+    fputcsv($f, ['date', 'nom', 'email', 'telephone', 'offre', 'iphone', 'coque', 'couleur', 'quantite', 'message']);
 }
-fputcsv($f, array_map($csv, [date('Y-m-d H:i'), $nom, $email, $telephone, $iphone, $coque, $couleur, (string)$quantite, str_replace(["\r", "\n"], ' ', $message)]));
+fputcsv($f, array_map($csv, [date('Y-m-d H:i'), $nom, $email, $telephone, $offre, $iphone, $coque, $couleur, (string)$quantite, str_replace(["\r", "\n"], ' ', $message)]));
 flock($f, LOCK_UN);
 fclose($f);
 
@@ -166,10 +169,10 @@ fclose($f);
 if (!empty($envoyerMail)) {
     $hote  = (string)preg_replace('/[^a-z0-9.\-]/', '', preg_replace('/^www\./', '', $hoteSite));
     if ($hote === '') { $hote = 'hansadebayo.fr'; }
-    $sujet = '=?UTF-8?B?' . base64_encode("Précommande ZB Dock : $nom ($couleur x$quantite)") . '?=';
+    $sujet = '=?UTF-8?B?' . base64_encode("Précommande ZB Dock : $nom ($offre, $couleur x$quantite)") . '?=';
     $corps = "Nouvelle réservation ZB Dock\n\n"
            . "Nom : $nom\nE-mail : $email\nTéléphone : $telephone\n"
-           . "iPhone : $iphone (coque : $coque)\nCouleur : $couleur\nQuantité : $quantite\n\n"
+           . "Formule : $offre\niPhone : $iphone (coque : $coque)\nCouleur : $couleur\nQuantité : $quantite\n\n"
            . "Message :\n$message\n";
     $entetes = "From: ZB Dock <no-reply@$hote>\r\n"
              . "Reply-To: $email\r\n"

@@ -207,3 +207,30 @@ main.zb { max-width: 1120px; padding: 28px 20px 64px; gap: 72px; }
 @media (prefers-reduced-motion: reduce) {
   .zb-pastille, .zb-carte, .zb-acheter, .zb-collante { transition: none; }
 }
+
+/* Formules */
+.zb-offres { display: flex; flex-direction: column; gap: 10px; text-align: left; }
+.zb-offre { position: relative; display: block; cursor: pointer; }
+.zb-offre input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.zb-offre__corps {
+  display: grid; grid-template-columns: 1fr auto; column-gap: 12px; row-gap: 4px; align-items: start;
+  padding: 16px 16px 16px 46px; border: 1px solid var(--texte); border-radius: 12px; position: relative;
+  transition: background .15s, color .15s;
+}
+.zb-offre__corps::before {
+  content: ""; position: absolute; left: 16px; top: 19px; width: 16px; height: 16px;
+  border: 1.5px solid currentColor; border-radius: 50%;
+}
+.zb-offre input:checked + .zb-offre__corps { background: var(--texte); color: var(--fond); }
+.zb-offre input:checked + .zb-offre__corps::before { background: radial-gradient(circle, currentColor 0 4px, transparent 5px); }
+.zb-offre input:focus-visible + .zb-offre__corps { outline: 2px solid var(--texte); outline-offset: 3px; }
+.zb-offre__badge {
+  grid-column: 1 / -1; justify-self: start; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+  border: 1.5px solid currentColor; border-radius: 999px; padding: 2px 8px; margin-bottom: 2px;
+}
+.zb-offre__nom { font-size: 16px; font-weight: 700; line-height: 1.3; }
+.zb-offre__prix { grid-column: 2; grid-row: span 2; font-size: 17px; font-weight: 700; white-space: nowrap; }
+.zb-offre__badge ~ .zb-offre__prix { grid-row: 2 / span 2; }
+.zb-offre__detail { grid-column: 1; font-size: 13px; line-height: 1.4; }
+.zb-offre__note { margin: 0; font-size: 13px; line-height: 1.5; }
+@media (prefers-reduced-motion: reduce) { .zb-offre__corps { transition: none; } }

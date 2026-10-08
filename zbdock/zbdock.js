@@ -170,7 +170,9 @@ form.addEventListener('submit', async (e) => {
 });
 
 // ---------- Quantité et total ----------
-const PRIX_CENTIMES = 2599;
+const offres = [...document.querySelectorAll('input[name="offre"]')];
+const prixAffiche = document.getElementById('prix-affiche');
+const prixOffre = () => +(offres.find(o => o.checked) || offres[0]).dataset.prix;
 const champQuantite = document.getElementById('quantite');
 const total = document.getElementById('total');
 const formatEuro = (c) => (c / 100).toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' €';
@@ -179,11 +181,13 @@ function majTotal() {
   if (!Number.isFinite(q)) q = 1;
   q = Math.min(10, Math.max(1, q));
   champQuantite.value = String(q);
-  total.textContent = formatEuro(PRIX_CENTIMES * q);
+  total.textContent = formatEuro(prixOffre() * q);
+  prixAffiche.textContent = formatEuro(prixOffre());
 }
 document.getElementById('moins').addEventListener('click', () => { champQuantite.value = String(+champQuantite.value - 1); majTotal(); });
 document.getElementById('plus').addEventListener('click', () => { champQuantite.value = String(+champQuantite.value + 1); majTotal(); });
 champQuantite.addEventListener('change', majTotal);
+offres.forEach(o => o.addEventListener('change', majTotal));
 form.addEventListener('reset', () => setTimeout(majTotal));
 
 // ---------- Barre d'achat collante (mobile) ----------
