@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data:; form-action 'self'; base-uri 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>ZB Dock · Précommande</title>
+  <meta name="description" content="ZB Dock, le dock de bureau imprimé en 3D pour iPhone, Apple Watch et AirPods. Conçu et fabriqué par Hans Adebayo. Réservez le vôtre, sans paiement.">
+  <meta property="og:title" content="ZB Dock · Précommande">
+  <meta property="og:description" content="Rechargez votre iPhone en MagSafe, votre Apple Watch et vos AirPods. Réservez le vôtre, sans paiement.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="zbdock.css">
+  <link rel="modulepreload" href="vendor/three.module.min.js">
+</head>
+<body>
+  <div class="barre">
+    <a class="signature" href="../index.html" aria-label="Retour à l'accueil">ZBH</a>
+    <a class="retour" href="#precommande">Réserver</a>
+  </div>
+
+  <main class="zb">
+    <header class="zb-intro">
+      <p class="zb-tag">Précommandes ouvertes</p>
+      <h1>ZB Dock</h1>
+      <p class="bio">Le dock de bureau pour votre iPhone. Rechargez-le en MagSafe, chargez votre Apple Watch et même vos AirPods. Conçu et imprimé en 3D par Hans Adebayo.</p>
+    </header>
+
+    <section class="zb-viewer" aria-label="Modèle 3D du ZB Dock">
+      <div class="zb-canvas" id="viewer">
+        <p class="zb-chargement" id="chargement">Chargement du modèle 3D…</p>
+      </div>
+      <p class="zb-aide">Glissez pour tourner · pincez ou molette pour zoomer</p>
+
+      <fieldset class="zb-couleurs">
+        <legend>Couleur : <strong id="nom-couleur">Sable</strong></legend>
+        <div class="zb-pastilles" id="pastilles" role="radiogroup" aria-label="Couleurs disponibles"></div>
+      </fieldset>
+    </section>
+
+    <section aria-labelledby="titre-atouts">
+      <h2 id="titre-atouts">Pourquoi le ZB Dock</h2>
+      <ol class="faire">
+        <li>Recharge MagSafe, iPhone posé en paysage</li>
+        <li>Apple Watch et AirPods sur le même dock</li>
+        <li>Câbles cachés, bureau net</li>
+        <li>Imprimé à la demande, en PLA mat</li>
+      </ol>
+    </section>
+
+    <section id="precommande" aria-labelledby="titre-precommande">
+      <h2 id="titre-precommande">Réservez le vôtre</h2>
+      <p class="zb-note-haut">Réservation <strong>sans paiement</strong>. Je vous recontacte personnellement pour confirmer votre commande.</p>
+
+      <form class="zb-form" id="form" action="precommande.php" method="post" novalidate>
+        <div class="zb-champ">
+          <label for="nom">Nom et prénom</label>
+          <input id="nom" name="nom" type="text" autocomplete="name" required maxlength="80">
+        </div>
+        <div class="zb-champ">
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" autocomplete="email" required maxlength="120">
+        </div>
+        <div class="zb-champ">
+          <label for="telephone">Téléphone <span class="zb-opt">(facultatif)</span></label>
+          <input id="telephone" name="telephone" type="tel" autocomplete="tel" maxlength="30">
+        </div>
+        <div class="zb-ligne">
+          <div class="zb-champ">
+            <label for="iphone">Votre iPhone</label>
+            <select id="iphone" name="iphone" required>
+              <option value="">Choisir…</option>
+              <option>iPhone 17 Pro Max</option>
+              <option>iPhone 17 Pro</option>
+              <option>iPhone 17</option>
+              <option>iPhone Air</option>
+              <option>iPhone 16 Pro Max</option>
+              <option>iPhone 16 Pro</option>
+              <option>iPhone 16 / 16 Plus</option>
+              <option>iPhone 15 (tous modèles)</option>
+              <option>iPhone 14 (tous modèles)</option>
+              <option>iPhone 13 ou plus ancien</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="zb-champ">
+            <label for="coque">Avec une coque ?</label>
+            <select id="coque" name="coque" required>
+              <option value="">Choisir…</option>
+              <option>Oui</option>
+              <option>Non</option>
+            </select>
+          </div>
+        </div>
+        <div class="zb-ligne">
+          <div class="zb-champ">
+            <label for="couleur">Couleur</label>
+            <select id="couleur" name="couleur" required></select>
+          </div>
+          <div class="zb-champ">
+            <label for="quantite">Quantité</label>
+            <input id="quantite" name="quantite" type="number" min="1" max="10" value="1" required inputmode="numeric">
+          </div>
+        </div>
+        <div class="zb-champ">
+          <label for="message">Un mot ? <span class="zb-opt">(facultatif)</span></label>
+          <textarea id="message" name="message" rows="3" maxlength="600"></textarea>
+        </div>
+
+        <!-- Piège à robots : laisser vide -->
+        <div class="zb-piege" aria-hidden="true">
+          <label for="site">Ne pas remplir</label>
+          <input id="site" name="site" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <label class="zb-consent">
+          <input type="checkbox" name="consentement" value="oui" required>
+          <span>J'accepte d'être recontacté au sujet de ma réservation. Mes données ne servent qu'à cela et ne sont jamais revendues.</span>
+        </label>
+
+        <button class="cta zb-envoyer" type="submit">Réserver mon ZB Dock</button>
+        <p class="zb-statut" id="statut" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <footer>
+      <p class="signature-pied"><strong>ZeBest Studio</strong></p>
+      <p>Conçu et fabriqué par Hans Adebayo, à Toulouse.</p>
+    </footer>
+  </main>
+
+  <script type="module" src="zbdock.js"></script>
+</body>
+</html>

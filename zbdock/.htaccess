@@ -1,0 +1,13 @@
+# Page ZB Dock : autorise le JavaScript du site (viewer 3D) et l'envoi du formulaire vers ce site uniquement
+<IfModule mod_headers.c>
+  Header always set Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data:; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType model/gltf-binary .glb
+  AddType text/javascript .js
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/javascript model/gltf-binary text/css text/html
+</IfModule>

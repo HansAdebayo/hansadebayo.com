@@ -1,0 +1,76 @@
+/* Page ZB Dock : complète styles.css du site */
+
+.zb { gap: 48px; }
+
+.zb-intro { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.zb-tag {
+  margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  border: 1.5px solid var(--texte); border-radius: 999px; padding: 4px 12px;
+}
+.zb-intro h1 { margin-top: 8px; font-size: 52px; }
+
+.zb-canvas {
+  position: relative; width: 100%; aspect-ratio: 1 / 1;
+  border: 1px solid var(--texte); border-radius: 14px; overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 20%, #ffffff 0%, #f1f1f1 100%);
+  touch-action: none; cursor: grab;
+}
+.zb-canvas:active { cursor: grabbing; }
+.zb-canvas canvas { display: block; width: 100%; height: 100%; }
+.zb-chargement {
+  position: absolute; inset: 0; margin: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 14px;
+}
+.zb-aide { margin: 10px 0 0; text-align: center; font-size: 13px; }
+
+.zb-couleurs { border: 0; margin: 24px 0 0; padding: 0; text-align: center; }
+.zb-couleurs legend { padding: 0; margin: 0 auto 12px; font-size: 15px; }
+.zb-pastilles { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.zb-pastille {
+  width: 40px; height: 40px; border-radius: 50%; padding: 0; cursor: pointer;
+  background: var(--c); border: 1px solid rgba(0, 0, 0, .25);
+  box-shadow: 0 0 0 3px var(--fond), 0 0 0 4px transparent;
+  transition: box-shadow .15s, transform .15s;
+}
+.zb-pastille:hover { transform: scale(1.06); }
+.zb-pastille[aria-checked="true"] { box-shadow: 0 0 0 3px var(--fond), 0 0 0 5px var(--texte); }
+.zb-pastille:focus-visible { outline: 2px solid var(--texte); outline-offset: 6px; }
+
+.zb-note-haut { margin: -4px 0 20px; font-size: 16px; }
+
+.zb-form { display: flex; flex-direction: column; gap: 16px; }
+.zb-ligne { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.zb-champ { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.zb-champ label { font-size: 14px; font-weight: 600; }
+.zb-opt { font-weight: 400; }
+.zb-form input[type="text"], .zb-form input[type="email"], .zb-form input[type="tel"],
+.zb-form input[type="number"], .zb-form select, .zb-form textarea {
+  width: 100%; min-height: 50px; padding: 12px 14px;
+  font: inherit; font-size: 16px; color: var(--texte); background: var(--fond);
+  border: 1px solid var(--texte); border-radius: 12px; appearance: none;
+}
+.zb-form select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--texte) 50%), linear-gradient(135deg, var(--texte) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
+  background-size: 6px 6px; background-repeat: no-repeat; padding-right: 36px;
+}
+.zb-form textarea { resize: vertical; }
+.zb-form :is(input, select, textarea):focus-visible { outline: 2px solid var(--texte); outline-offset: 2px; }
+
+.zb-piege { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.zb-consent { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.5; }
+.zb-consent input { width: 20px; height: 20px; margin: 2px 0 0; flex: none; accent-color: var(--texte); }
+
+.zb-envoyer { margin: 4px 0 0; cursor: pointer; font-family: inherit; width: 100%; }
+.zb-envoyer:disabled { opacity: .5; cursor: progress; }
+
+.zb-statut { margin: 0; min-height: 1.6em; font-size: 15px; text-align: center; }
+.zb-statut--ok { font-weight: 600; }
+.zb-statut--ko { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 420px) {
+  .zb-ligne { grid-template-columns: 1fr; }
+  .zb-intro h1 { font-size: 42px; }
+}
+@media (prefers-reduced-motion: reduce) { .zb-pastille { transition: none; } }
