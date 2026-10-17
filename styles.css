@@ -22,6 +22,11 @@ body {
   max-width: 560px; margin: 0 auto; padding: 24px 20px 0;
   display: flex; justify-content: space-between; align-items: center;
 }
+.logo { display: block; height: 36px; width: auto; }
+.logo-lien { display: inline-flex; border-radius: 6px; }
+.logo-lien:hover .logo { opacity: .7; }
+.logo-lien:focus-visible { outline: 2px solid var(--texte); outline-offset: 4px; }
+.logo--pied { display: inline-block; height: 25px; }
 .signature {
   font-size: 18px; font-weight: 800; letter-spacing: 1px;
   border: 1.5px solid var(--texte); border-radius: 8px; padding: 4px 8px; line-height: 1;
