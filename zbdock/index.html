@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self' blob: data:; form-action 'self'; base-uri 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title>ZB Dock · Dock iPhone MagSafe, Apple Watch et AirPods · dès 19,99 €</title>
-  <meta name="description" content="ZB Dock, le dock de bureau imprimé en 3D pour iPhone, Apple Watch et AirPods. Dock seul 19,99 €, avec chargeur MagSafe Apple 59,99 €, livraison incluse. Précommande sans rien payer aujourd’hui.">
-  <meta property="og:title" content="ZB Dock · dès 19,99 €">
+  <title>ZB Dock et ZB Dock mini · Docks de bureau imprimés en 3D · dès 8,99 €</title>
+  <meta name="description" content="ZB Dock, le dock de bureau imprimé en 3D pour iPhone, Apple Watch et AirPods, et ZB Dock mini, le dock simple pour tous les téléphones. ZB Dock mini 8,99 €, ZB Dock seul 19,99 €, avec chargeur MagSafe Apple 59,99 €, livraison incluse. Précommande sans rien payer aujourd’hui.">
+  <meta property="og:title" content="ZB Dock et ZB Dock mini · dès 8,99 €">
   <meta property="og:description" content="iPhone, Apple Watch et AirPods sur un seul dock. Précommandez sans rien payer aujourd’hui.">
   <meta property="og:type" content="product">
   <meta name="theme-color" content="#ffffff">
@@ -19,7 +19,7 @@
 <body class="page-zb">
   <div class="zb-barre">
     <a class="logo-lien" href="../index.html" aria-label="Retour à l'accueil"><img class="logo" src="../assets/logo-zb.svg" alt="ZB" width="40" height="36"></a>
-    <nav class="zb-fil" aria-label="Fil d'Ariane"><a href="../index.html">Accueil</a><span aria-hidden="true">›</span><span>ZB Dock</span></nav>
+    <nav class="zb-fil" aria-label="Fil d'Ariane"><a href="../index.html">Accueil</a><span aria-hidden="true">›</span><span>ZB Dock et ZB Dock mini</span></nav>
   </div>
 
   <main class="zb">
@@ -39,9 +39,9 @@
       </section>
 
       <section class="zb-achat" id="achat" aria-labelledby="titre-produit">
-        <p class="zb-prix">À partir de <span id="prix-affiche">19,99&nbsp;€</span></p>
+        <p class="zb-prix">À partir de <span id="prix-affiche">8,99&nbsp;€</span></p>
         <h1 id="titre-produit">ZB Dock</h1>
-        <p class="zb-sous">Dock de bureau pour iPhone</p>
+        <p class="zb-sous" id="sous-produit">Dock de bureau pour iPhone</p>
 
         <form class="zb-form" id="form" action="precommande.php" method="post" novalidate>
           <fieldset class="zb-option">
@@ -55,10 +55,11 @@
             <select id="offre" name="offre" required>
               <option value="Dock seul" data-prix="1999">Dock seul · 19,99 €</option>
               <option value="Dock + MagSafe" data-prix="5999">Dock + chargeur MagSafe Apple · 59,99 € (conseillé)</option>
+              <option value="ZB Dock mini" data-prix="899">ZB Dock mini · 8,99 € (tous les téléphones)</option>
             </select>
           </div>
 
-          <div class="zb-option">
+          <div class="zb-option" id="bloc-coque">
             <label class="zb-label" for="coque">Avec une coque ?</label>
             <select id="coque" name="coque" required>
               <option value="Non">iPhone sans coque</option>
@@ -67,7 +68,7 @@
           </div>
 
           <div class="zb-option">
-            <label class="zb-label" for="iphone">Modèle d’iPhone</label>
+            <label class="zb-label" for="iphone" id="label-tel">Modèle d’iPhone</label>
             <select id="iphone" name="iphone" required>
               <option>iPhone 17 Pro</option>
               <option>iPhone 17 Pro Max</option>
@@ -79,6 +80,7 @@
               <option>iPhone 15 (tous modèles)</option>
               <option>iPhone 14 (tous modèles)</option>
               <option>iPhone 13 ou plus ancien</option>
+              <option>Android ou autre téléphone</option>
               <option>Autre</option>
             </select>
           </div>
@@ -180,8 +182,8 @@
         <p>Oui, si vous l’indiquez. Choisissez « iPhone avec coque » et votre modèle : le dock est ajusté pour l’accueillir.</p>
       </details>
       <details>
-        <summary>Quels iPhone sont compatibles ?</summary>
-        <p>Les iPhone récents compatibles MagSafe, des modèles standard aux Pro Max. Pour un modèle plus ancien, choisissez « Autre » et on en parle.</p>
+        <summary>Quels téléphones sont compatibles ?</summary>
+        <p>ZB Dock : les iPhone récents compatibles MagSafe, des modèles standard aux Pro Max. Pour un modèle plus ancien, choisissez « Autre » et on en parle. ZB Dock mini : tous les téléphones, Android comme iPhone, avec ou sans coque. Il se recharge avec votre câble USB-C habituel.</p>
       </details>
       <details>
         <summary>Pourquoi prendre la formule avec MagSafe ?</summary>
@@ -210,7 +212,7 @@
 
   <!-- Barre d'achat collante (mobile) -->
   <div class="zb-collante" id="collante" aria-hidden="true">
-    <div class="zb-collante__prix"><strong>À partir de 19,99&nbsp;€</strong><span>Livraison incluse</span></div>
+    <div class="zb-collante__prix"><strong>À partir de 8,99&nbsp;€</strong><span>Livraison incluse</span></div>
     <a class="zb-collante__btn" href="#achat" tabindex="-1">Précommander</a>
   </div>
 

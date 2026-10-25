@@ -12,7 +12,7 @@ header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-store');
 
 const DESTINATAIRE   = 'contact.hansadebayo@gmail.com';
-const OFFRES         = ['Dock + MagSafe', 'Dock seul'];
+const OFFRES         = ['Dock + MagSafe', 'Dock seul', 'ZB Dock mini'];
 const COULEURS       = ['Sable', 'Blanc', 'Noir', 'Orange', 'Noyer', 'Lavande', 'Bleu', 'Sauge'];
 const DELAI_MIN_S    = 3;     // un humain met plus de 3 s à remplir le formulaire
 const MAX_PAR_IP_H   = 5;     // envois max par IP et par heure

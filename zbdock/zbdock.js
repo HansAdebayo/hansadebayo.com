@@ -95,7 +95,10 @@ redimensionner();
 materiau = new THREE.MeshStandardMaterial({ color: COULEURS[0].hex, roughness: 0.82, metalness: 0 });
 choisir(0);
 
-new GLTFLoader().load('assets/zbdock.glb', (gltf) => {
+let groupeActuel = null;
+const loader = new GLTFLoader();
+function chargerModele(url) {
+loader.load(url, (gltf) => {
   const modele = gltf.scene;
   // Le STL est en Z vers le haut : on le remet en Y vers le haut
   modele.rotation.x = -Math.PI / 2;
@@ -112,6 +115,8 @@ new GLTFLoader().load('assets/zbdock.glb', (gltf) => {
   const boite = new THREE.Box3().setFromObject(groupe);
   const centre = boite.getCenter(new THREE.Vector3());
   modele.position.sub(new THREE.Vector3(centre.x, boite.min.y, centre.z));
+  if (groupeActuel) scene.remove(groupeActuel);
+  groupeActuel = groupe;
   scene.add(groupe);
 
   const taille = boite.getSize(new THREE.Vector3()).length();
@@ -125,10 +130,12 @@ new GLTFLoader().load('assets/zbdock.glb', (gltf) => {
   VUES.face      = new THREE.Vector3(taille * 1.9, ty + taille * 0.35, 0);
   VUES.cote      = new THREE.Vector3(0, ty + taille * 0.2, taille * 1.9);
   VUES.arriere   = new THREE.Vector3(-taille * 1.3, ty + taille * 1.1, taille * 0.4);
-  chargement.remove();
+  if (chargement.isConnected) chargement.remove();
 }, undefined, () => {
   chargement.textContent = 'Le modèle 3D n’a pas pu se charger.';
 });
+}
+chargerModele('assets/zbdock.glb');
 
 // Angles de vue (boutons sous la 3D) avec transition douce
 const VUES = {};
@@ -206,6 +213,33 @@ document.getElementById('moins').addEventListener('click', () => { champQuantite
 document.getElementById('plus').addEventListener('click', () => { champQuantite.value = String(+champQuantite.value + 1); majTotal(); });
 champQuantite.addEventListener('change', majTotal);
 selectOffre.addEventListener('change', majTotal);
+
+// ---------- ZB Dock ou ZB Dock mini ----------
+const titreProduit = document.getElementById('titre-produit');
+const sousProduit = document.getElementById('sous-produit');
+const blocCoque = document.getElementById('bloc-coque');
+const labelTel = document.getElementById('label-tel');
+const selectTel = document.getElementById('iphone');
+const prixAffiche = document.getElementById('prix-affiche');
+let estMini = false;
+function majProduit() {
+  const mini = selectOffre.value === 'ZB Dock mini';
+  if (mini === estMini) return;
+  estMini = mini;
+  titreProduit.textContent = mini ? 'ZB Dock mini' : 'ZB Dock';
+  sousProduit.textContent = mini ? 'Dock de bureau pour tous les téléphones' : 'Dock de bureau pour iPhone';
+  prixAffiche.textContent = mini ? '8,99\u00a0€' : '19,99\u00a0€';
+  blocCoque.hidden = mini;
+  labelTel.textContent = mini ? 'Modèle de téléphone' : 'Modèle d’iPhone';
+  selectTel.selectedIndex = mini ? [...selectTel.options].findIndex((o) => o.value === 'Android ou autre téléphone') : 0;
+  chargerModele(mini ? 'assets/zbdock-mini.glb' : 'assets/zbdock.glb');
+}
+selectOffre.addEventListener('change', majProduit);
+if (new URLSearchParams(location.search).get('modele') === 'mini') {
+  selectOffre.value = 'ZB Dock mini';
+  majProduit();
+  majTotal();
+}
 
 // Étape 2 : les coordonnées n'apparaissent qu'après « Précommander »
 const coordonnees = document.getElementById('coordonnees');
