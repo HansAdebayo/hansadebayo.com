@@ -26,6 +26,10 @@
     <!-- ===== Bloc produit ===== -->
     <div class="zb-produit">
       <section class="zb-galerie" aria-label="Modèle 3D du ZB Dock">
+        <div class="zb-vues zb-modeles" role="group" aria-label="Choisir le modèle">
+          <button type="button" class="zb-vue zb-modele" data-modele="zb" aria-pressed="true">ZB Dock</button>
+          <button type="button" class="zb-vue zb-modele" data-modele="mini" aria-pressed="false">ZB Dock mini</button>
+        </div>
         <div class="zb-canvas" id="viewer">
           <p class="zb-chargement" id="chargement">Chargement du modèle 3D…</p>
         </div>
@@ -39,7 +43,7 @@
       </section>
 
       <section class="zb-achat" id="achat" aria-labelledby="titre-produit">
-        <p class="zb-prix">À partir de <span id="prix-affiche">8,99&nbsp;€</span></p>
+        <p class="zb-prix">À partir de <span id="prix-affiche">19,99&nbsp;€</span></p>
         <h1 id="titre-produit">ZB Dock</h1>
         <p class="zb-sous" id="sous-produit">Dock de bureau pour iPhone</p>
 

@@ -225,3 +225,5 @@ main.zb { max-width: 1240px; padding: 28px 40px 80px; gap: 96px; }
 }
 
 .zb-option[hidden] { display: none !important; }
+.zb-modeles { margin: 0 0 12px; }
+.zb-modele { flex: 1; font-weight: 600; }

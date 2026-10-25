@@ -140,11 +140,11 @@ chargerModele('assets/zbdock.glb');
 // Angles de vue (boutons sous la 3D) avec transition douce
 const VUES = {};
 let cible = null;
-document.querySelectorAll('.zb-vue').forEach((b) => b.addEventListener('click', () => {
+document.querySelectorAll('.zb-vue:not(.zb-modele)').forEach((b) => b.addEventListener('click', () => {
   if (!VUES[b.dataset.vue]) return;
   cible = VUES[b.dataset.vue].clone();
   controls.autoRotate = false;
-  document.querySelectorAll('.zb-vue').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+  document.querySelectorAll('.zb-vue:not(.zb-modele)').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
 }));
 controls.addEventListener('start', () => { cible = null; });
 
@@ -233,7 +233,15 @@ function majProduit() {
   labelTel.textContent = mini ? 'Modèle de téléphone' : 'Modèle d’iPhone';
   selectTel.selectedIndex = mini ? [...selectTel.options].findIndex((o) => o.value === 'Android ou autre téléphone') : 0;
   chargerModele(mini ? 'assets/zbdock-mini.glb' : 'assets/zbdock.glb');
+  boutonsModele.forEach((x) => x.setAttribute('aria-pressed', (x.dataset.modele === 'mini') === mini ? 'true' : 'false'));
 }
+const boutonsModele = document.querySelectorAll('.zb-modele');
+boutonsModele.forEach((b) => b.addEventListener('click', () => {
+  const mini = b.dataset.modele === 'mini';
+  if (mini !== (selectOffre.value === 'ZB Dock mini')) selectOffre.value = mini ? 'ZB Dock mini' : 'Dock seul';
+  majProduit();
+  majTotal();
+}));
 selectOffre.addEventListener('change', majProduit);
 if (new URLSearchParams(location.search).get('modele') === 'mini') {
   selectOffre.value = 'ZB Dock mini';
